@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use Exception;
 use App\Models\Slides;
 use App\Models\Products;
 use App\Models\Categories;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class SlideController extends Controller
@@ -24,11 +27,11 @@ class SlideController extends Controller
         if ($request->session()->has('sort-slide')) {
             $sort = $request->session()->get('sort-slide');
             $sorts = $request->session()->get('sort-slides');
-
             $lists = Slides::orderBy($sort, $sorts)->paginate($limit);
         } else {
             $lists = Slides::orderBy('id', 'desc')->paginate($limit);
         }
+
         if ($request->ajax) {
             return view('dashboards.ajax.body-table-slide', ['lists' => $lists]);
         }
@@ -90,25 +93,21 @@ class SlideController extends Controller
         }
         return 0;
     }
-    public function post_delete(Request $request)
+    public function post_delete($id)
     {
-        if ($request->id) {
-            $slide = Slides::find($request->id);
-            if ($slide) {
-                if ($slide->image) {
-                    try {
-                        unlink(public_path($slide->image));
-                        //code...
-                    } catch (\Throwable $th) {
-                        //throw $th;
-                    }
-                }
-                $slide->delete();
-                return 1;
-            }
-            return -1;
+        try {
+            Slides::find($id)->delete();
+            return response()->json([
+                'code' => 200,
+                'message' => 'success'
+            ], 200);
+        } catch (Exception $exception) {
+            Log::error('Message' . $exception->getMessage());
+            return response()->json([
+                'code' => 500,
+                'message' => 'fail'
+            ], 500);
         }
-        return 0;
     }
     public function post_deletes(Request $request)
     {
@@ -140,7 +139,7 @@ class SlideController extends Controller
         }
         return redirect(route('user'));
     }
-    public function post_edit($id, Request $request)
+    public function post_edit(Request $request)
     {
         if ($request->title) {
             $sliders = Slides::find($request->id);
@@ -150,7 +149,6 @@ class SlideController extends Controller
                     'sub_title' => 'max:50',
                     'link' => 'required|max:250',
                     'category_id' => 'required|exists:categories,id',
-                    'image' => 'required',
                 ], [
                     'title.required' => 'Chưa nhập tiêu đề.',
                     'title.min' => 'Tiêu đề phải lớn hơn 6 ký tự.',
@@ -160,10 +158,46 @@ class SlideController extends Controller
                     'link.max' => 'Link không vượt quá 250 ký tự.',
                     'category_id.required' => 'Chưa chọn danh mục.',
                     'category_id.exists' => 'Danh mục không hợp lệ.',
-                    'image.required' => 'Chưa chọn ảnh.',
                 ]);
                 if ($validator->fails()) {
                     return response()->json(array('status' => 0, 'errors' => $validator->errors()), 200);
+                }
+                Slides::find($request->id)->update([
+                    'category_id' => $request->category_id,
+                    'title' => $request->title,
+                    'sub_title' => $request->sub_title,
+                    'link' => $request->link,
+                ]);
+                return redirect()->route('slide');
+            }
+            return response()->json(array('status' => -1, 'msg' => 'Không tìm thấy slide!'), 200);
+        }
+
+        return 0;
+    }
+    public function ajax_image_slider_main(Request $request)
+    {
+        if ($request->id) {
+            $slide = Slides::find($request->id);
+            if ($slide) {
+                return view('dashboards.ajax.image-slider-main', ['slide' => $slide]);
+            }
+            return 0;
+        }
+        return 0;
+    }
+    public function edit_image_slide(Request $request)
+    {
+        if ($request->id) {
+            $slide = Slides::find($request->id);
+            if ($slide) {
+                if ($slide->image) {
+                    try {
+                        unlink(public_path($slide->image));
+                    } catch (\Throwable $th) {
+                    }
+                    $slide->image = '';
+                    $slide->save();
                 }
                 if ($request->image) {
                     $image = $request->image;
@@ -173,21 +207,14 @@ class SlideController extends Controller
                     $image_name = getToken() . time() . '.png';
                     $path = 'images/slide/' . $image_name;
                     file_put_contents(public_path($path), $image);
-                    $images = $path;
+                    $slide->image = $path;
+                    $slide->save();
+                    return 1;
                 }
-                Slides::find($id)->update([
-                    'title' => $request->title,
-                    'sub_title' => $request->sub_title,
-                    'link' => $request->link,
-                    'category_id' => $request->category_id,
-                    'image' => $images,
-                ]);
-
-                return redirect()->route('slide');
+                return 0;
             }
-            return response()->json(array('status' => -1, 'msg' => 'Không tìm thấy slide!'), 200);
+            return -1;
         }
-
         return 0;
     }
 }

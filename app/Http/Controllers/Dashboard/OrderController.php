@@ -7,6 +7,9 @@ use App\Models\Categories;
 use App\Models\Order;
 use App\Models\Products;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Hash;
+use Exception;
 
 class OrderController extends Controller
 {
@@ -37,6 +40,22 @@ class OrderController extends Controller
             'title' => 'Đơn Hàng',
             'lists' => $order
         ]);
+    }
+    public function post_delete($id)
+    {
+        try {
+            Order::find($id)->delete();
+            return response()->json([
+                'code' => 200,
+                'message' => 'success'
+            ], 200);
+        } catch (Exception $exception) {
+            Log::error('Message' . $exception->getMessage());
+            return response()->json([
+                'code' => 500,
+                'message' => 'fail'
+            ], 500);
+        }
     }
     public function post_view($id)
     {

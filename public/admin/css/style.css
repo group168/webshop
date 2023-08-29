@@ -24007,7 +24007,7 @@ div.dtk-focus-alt table.dataTable tbody th.focus {
     overflow: hidden;
     min-width: 100%;
     min-height: 100vh;
-    background: #7fad39;
+    background: -webkit-linear-gradient(35deg, #de2d13 0%, #f0860d 100%);;
 }
 
 @media (min-width: 1200px) {

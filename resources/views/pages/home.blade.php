@@ -1,28 +1,38 @@
 @extends('pages.layouts.app')
 @section('title', 'Trang Chủ')
+@section('css')
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+@endsection
 @section('content')
     <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    @if (isset($slide))
-                        <div class="col-lg-12 col-md-12 hero__item set-bg" data-setbg="{{ url($slide->image) }}">
-                            <div class="hero__text">
-                                {{-- <span class="hero__category">{{ $slide->category->name }}</span> --}}
-                                <div class="hero_content">
-                                    {!! $slide->contents !!}
-                                </div>
-                                <div class="hero_content">
-                                    <h2 style="max-width: 100%; white-space: normal; ">{!! $slide->title !!}</h2>
-                                    <p>{!! $slide->sub_title !!}</p>
-                                </div>
-
-                                <a href="{{ $slide->link }}" class="primary-btn">{{ trans('page.shop_now') }}
-                                    <span></span></a>
+        <div class="container mt-5">
+            <div id="slider" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    @foreach ($slide as $key => $slides)
+                        <li data-target="#slider" data-slide-to="{{ $key }}" class="{{ $key === 0 ? 'active' : '' }}">
+                        </li>
+                    @endforeach
+                </ol>
+                <div class="carousel-inner">
+                    @foreach ($slide as $key => $slides)
+                        <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
+                            <img src="{{ $slides->image }}" class="d-block w-100" alt="">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>{{ $slides->title }}</h5>
+                                <h5>{{ $slides->sub_title }}</h5>
                             </div>
                         </div>
-                    @endif
+                    @endforeach
                 </div>
+
+                <a class="carousel-control-prev" href="#slider" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#slider" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
         </div>
     </section>
@@ -57,6 +67,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title">
+
                         <h2>{{ trans('page.product_new') }}</h2>
                     </div>
                     <div class="featured__controls">
@@ -71,6 +82,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="row featured__filter">
                 @if ($featured_products)
                     @foreach ($featured_products as $item)
@@ -85,4 +97,9 @@
         </div>
     </section>
 
+@endsection
+@section('script')
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 @endsection

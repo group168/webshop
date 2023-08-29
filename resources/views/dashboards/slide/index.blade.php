@@ -200,7 +200,7 @@
                                                     <label for="check-all"><b></b></label>
                                                 </div>
                                                 <button type="button" class="btn btn-sm btn-danger ld-over"
-                                                    id="delete-all" data-route="{{ route('delete-slides') }}"
+                                                    id="delete-all" data-route=""
                                                     data-route-data="{{ route('slide') }}">
                                                     <i class="fas fa-trash-alt"></i>
                                                     <div class="ld ld-ring ld-spin"></div>
@@ -283,10 +283,8 @@
                                                             <div class="ld ld-ring ld-spin"></div>
                                                         </button>
                                                         <button type="button"
-                                                            class="btn btn-icon btn-danger btn-delete ld-over"
-                                                            data-id="{{ $item->id }}"
-                                                            data-route="{{ route('delete-slide') }}"
-                                                            data-route-data="{{ route('slide') }}">
+                                                            class="btn btn-icon btn-danger action_delete ld-over"
+                                                            data-url="{{ route('delete-slide', ['id' => $item->id]) }}">
                                                             <i class="fas fa-trash-alt"></i>
                                                             <div class="ld ld-ring ld-spin"></div>
                                                         </button>
@@ -312,6 +310,7 @@
     </div>
 @endsection
 @section('script')
+    <script src="{{ asset('js/ajax/user_ajax.js') }}"></script>
     <script>
         $(".btn-edit").click(function() {
             _this = $(this);
@@ -374,24 +373,13 @@
                             category_id: category_id,
                         },
                         success: function(data) {
+
                             $('#add-form').removeClass('running');
                             if (data.status == 1) {
                                 toastr.clear()
                                 toastr.success(data.msg);
-                                $("#add-slide").modal('hide');
-                                $("#table-body").addClass('running');
-                                $.ajax({
-                                    url: '{{ route('slide') }}',
-                                    type: "GET",
-                                    data: {
-                                        ajax: true,
-                                        page: {{ request()->get('page') ? request()->get('page') : 1 }},
-                                    },
-                                    success: function(data) {
-                                        $("#table-body").removeClass('running');
-                                        $("#table-content").html(data);
-                                    }
-                                });
+                                console.log(data.id)
+                                window.location.href = "{{ route('slide') }}";
                             }
                             if (data.status == -1) {
                                 toastr.clear()
@@ -404,6 +392,36 @@
                                     toastr.error(value);
                                 });
                             }
+                            // $('#add-form').removeClass('running');
+                            // if (data.status == 1) {
+                            //     toastr.clear()
+                            //     toastr.success(data.msg);
+                            //     $("#add-slide").modal('hide');
+                            //     $("#table-body").addClass('running');
+                            //     $.ajax({
+                            //         url: "{{ route('slide') }}",
+                            //         type: "GET",
+                            //         data: {
+                            //             ajax: true,
+                            //             page: {{ request()->get('page') ? request()->get('page') : 1 }},
+                            //         },
+                            //         success: function(data) {
+                            //             $("#table-body").removeClass('running');
+                            //             $("#table-content").html(data);
+                            //         }
+                            //     });
+                            // }
+                            // if (data.status == -1) {
+                            //     toastr.clear()
+                            //     toastr.error(data.msg);
+                            // }
+                            // if (data.status == 0) {
+                            //     toastr.clear()
+                            //     let errors = data.errors;
+                            //     $.each(errors, function(index, value) {
+                            //         toastr.error(value);
+                            //     });
+                            // }
                         },
                         error: function(data) {
                             $('#add-form').removeClass('running');

@@ -55,6 +55,7 @@
                                                                 placeholder="Email">
                                                             <small class="form-text text-muted"></small>
                                                         </div>
+
                                                         <div class="form-group fill">
                                                             <label for="product_unit">Password</label>
                                                             <input type="text" name="password" class="form-control"
@@ -69,6 +70,16 @@
                                                                 aria-describedby="Confirm password"
                                                                 placeholder="Đơn vị tính">
                                                             <small class="form-text text-muted"></small>
+                                                        </div>
+                                                        <div class="form-group fill">
+                                                            <label for="product_price">Role</label>
+                                                            <select name="role" id="role" class="col-md-6">
+                                                                @foreach ($role as $item)
+                                                                    <option value="{{ $item->name }}">{{ $item->name }}
+                                                                    </option>
+                                                                @endforeach
+                                                                <small class="form-text text-muted"></small>
+                                                            </select>
                                                         </div>
                                                     </div>
 
@@ -196,7 +207,7 @@
                                             </th>
                                             <th>Tên User</th>
                                             <th>Email</th>
-                                            <th>Password</th>
+                                            <th>Role</th>
                                             <th>Trạng Thái</th>
                                         </tr>
                                     </thead>
@@ -219,8 +230,9 @@
                                                     <td style="white-space: normal; max-width: 300px;">
                                                         <b>{{ $item->email }}</b>
                                                     </td>
+
                                                     <td style="white-space: normal; max-width: 300px;">
-                                                        <b>{{ $item->password }}</b>
+                                                        <b>{{ $item->role }}</b>
                                                     </td>
 
                                                     <td>
@@ -278,6 +290,7 @@
             let email = $("#user_email").val();
             let password = $("#user_password").val();
             let confirm_password = $("#user_confirm_password").val();
+            let role = $("#role").val();
             if (name == '') {
                 toastr.error('Chưa nhập tên!');
             }
@@ -286,7 +299,6 @@
             }
             if (name != '') {
                 $('#add-form').addClass('running');
-
                 let _token = $('meta[name="csrf-token"]').attr('content');
                 $.ajax({
                     url: "{{ route('add-user') }}",
@@ -296,6 +308,7 @@
                         name: name,
                         email: email,
                         password: password,
+                        role: role,
                     },
                     success: function(data) {
                         $('#add-form').removeClass('running');

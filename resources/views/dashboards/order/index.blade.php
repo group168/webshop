@@ -291,10 +291,8 @@
                                                             <div class="ld ld-ring ld-spin"></div>
                                                         </button>
                                                         <button type="button"
-                                                            class="btn btn-icon btn-danger btn-delete ld-over"
-                                                            data-id="{{ $item->id }}"
-                                                            data-route="{{ route('delete-product') }}"
-                                                            data-route-data="{{ route('product') }}">
+                                                            class="btn btn-icon btn-danger action_delete ld-over"
+                                                            data-url="{{ route('delete-order', ['id' => $item->id]) }}">
                                                             <i class="fas fa-trash-alt"></i>
                                                             <div class="ld ld-ring ld-spin"></div>
                                                         </button>
@@ -320,6 +318,7 @@
     </div>
 @endsection
 @section('script')
+    <script src="{{ asset('js/ajax/user_ajax.js') }}"></script>
     <script>
         $(".btn-edit").click(function() {
             _this = $(this);
@@ -327,65 +326,7 @@
             id = _this.data('id');
             window.location.href = '{{ route('edit-product') }}/' + id;
         })
-        $("#add").click(function() {
-            toastr.clear()
-            let name = $("#product_name").val();
-            let description = $("#product_description").val();
-            let price = $("#product_price").val();
-            let unit = $("#product_unit").val();
-            let count = $("#product_count").val();
-            if (name == '') {
-                toastr.error('Chưa nhập tên sản phẩm!');
-            }
-            if (name != '') {
-                $('#add-form').addClass('running');
-                resize.croppie('result', {
-                    type: 'canvas',
-                    size: 'viewport'
-                }).then(function(img) {
-                    let _token = $('meta[name="csrf-token"]').attr('content');
-                    $.ajax({
-                        url: "{{ route('add-product') }}",
-                        type: "POST",
-                        data: {
-                            _token: _token,
-                            name: name,
-                            description: description,
-                            image: img,
-                            cost_price: price,
-                            unit: unit,
-                            count: count
-                        },
-                        success: function(data) {
-                            $('#add-form').removeClass('running');
-                            if (data.status == 1) {
-                                toastr.clear()
-                                toastr.success(data.msg);
-                                console.log(data.id)
-                                window.location.href = '{{ route('edit-product') }}/' + data
-                                    .id;
-                            }
-                            if (data.status == -1) {
-                                toastr.clear()
-                                toastr.error(data.msg);
-                            }
-                            if (data.status == 0) {
-                                toastr.clear()
-                                let errors = data.errors;
-                                $.each(errors, function(index, value) {
-                                    toastr.error(value);
-                                });
-                            }
-                        },
-                        error: function(data) {
-                            $('#add-form').removeClass('running');
-                            toastr.clear()
-                            toastr.error("Lỗi! Không thể thêm sản phẩm.");
-                        }
-                    });
-                });
-            }
-        });
+
         var resize = $('#upload-demo').croppie({
             enableExif: true,
             enableOrientation: true,

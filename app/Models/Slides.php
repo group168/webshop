@@ -9,6 +9,12 @@ class Slides extends Model
 {
     use HasFactory;
     //    protected $table = 'slides';
+    protected $fillable = [
+        'category_id',
+        'title',
+        'sub_title',
+        'link',
+    ];
     public function category()
     {
         return $this->belongsTo(Categories::class, 'category_id');

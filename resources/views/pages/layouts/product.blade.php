@@ -1,9 +1,8 @@
-@if(isset($item) && $item!=null)
+@if (isset($item) && $item != null)
     <div class="featured__item shadow">
         <div class="featured__item__pic set-bg" data-setbg="{{ url($item->image) }}">
-            <div
-                class="wish @if(Auth::user() && \App\Models\Wish::where('user_id', Auth::user()->id)->where('product_id', $item->id)->first()) active @endif"
-                data-id="{{ $item->id }}"
+            <div class="wish @if (Auth::user() &&
+                    \App\Models\Wish::where('user_id', Auth::user()->id)->where('product_id', $item->id)->first()) active @endif" data-id="{{ $item->id }}"
                 data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">
                 <div class="noloading active">
                     <i class="fa fa-heart"></i>

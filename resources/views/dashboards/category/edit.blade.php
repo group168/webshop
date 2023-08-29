@@ -30,20 +30,21 @@
                     </div>
                 </div>
                 <div class="card-body table-border-style">
-                    <form action="" method="post" class="ld-over" id="edit-form" enctype="multipart/form-data">
+                    <form action="{{ route('update-category', ['id' => $category->id]) }}" method="post" class="ld-over"
+                        id="edit-form" enctype="multipart/form-data">
+                        @csrf
                         <div class="ld ld-ring ld-spin"></div>
                         <div class="row">
                             <div class="col-md-7">
                                 <div class="form-group fill">
                                     <label for="name">Tên danh mục</label>
-                                    <input type="text" id="category_name" name="category_name"
-                                        value="{{ $category->name }}" class="form-control" aria-describedby="Tên sản phẩm"
-                                        placeholder="Tên sản phẩm">
+                                    <input type="text" id="name" name="name" value="{{ $category->name }}"
+                                        class="form-control" aria-describedby="Tên sản phẩm" placeholder="Tên sản phẩm">
                                     <small class="form-text text-muted"></small>
                                 </div>
                                 <div class="form-group fill">
                                     <label for="cost_price">Mô Tả</label>
-                                    <textarea class="form-control" id="category_description" rows="3">{{ $category->description }}</textarea>
+                                    <textarea name="description" class="form-control" id="description" rows="3">{{ $category->description }}</textarea>
                                 </div>
                             </div>
                             <div class="col-md-5">
@@ -68,14 +69,15 @@
                             </div>
                         </div>
                         <hr>
+                        <div class="modal-footer d-flex justify-content-center p-2">
+                            <button type="submit" class="btn btn-primary btn-submit">Update</button>
+                        </div>
                     </form>
-                    <div class="modal-footer d-flex justify-content-center p-2">
-                        <button type="button" id="add-image" class="btn btn-primary btn-submit">Update</button>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+
     <div id="EditImageMain" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -194,51 +196,7 @@
         $(".close").click(function() {
             _this.removeClass('running');
         })
-        $(".btn-action").click(function() {
-            _this.addClass('running');
-            $('#DeleteImage').modal('toggle');
-            let _token = $('meta[name="csrf-token"]').attr('content');
-            $.ajax({
-                url: "{{ route('delete-image-product') }}",
-                type: "POST",
-                data: {
-                    _token: _token,
-                    id: id_image,
-                },
-                success: function(data) {
-                    $(this).removeClass('running');
-                    $("#add-product").modal('hide');
-                    if (data == 1) {
-                        _this.removeClass('running');
-                        toastr.clear()
-                        toastr.success('Xóa thành công!');
-                        $("#anh-san-pham").addClass('running');
-                        let id = {{ $category->id }};
-                        $.ajax({
-                            url: "{{ route('ajax-image-product') }}",
-                            type: "POST",
-                            data: {
-                                _token: _token,
-                                id: id,
-                            },
-                            success: function(data) {
-                                $("#anh-san-pham").removeClass('running');
-                                $("#danh-sach-anh-san-pham").html(data);
-                            }
-                        });
-                    } else {
-                        _this.removeClass('running');
-                        toastr.clear()
-                        toastr.error('Xóa thất bại!');
-                    }
-                },
-                error: function() {
-                    _this.removeClass('running');
-                    toastr.clear()
-                    toastr.error('Xóa thất bại!');
-                }
-            });
-        })
+
         //End List Image
 
         // Image Main
@@ -257,7 +215,7 @@
                 let _token = $('meta[name="csrf-token"]').attr('content');
                 let id = {{ $category->id }};
                 $.ajax({
-                    url: "{{ route('edit-image-product') }}",
+                    url: "{{ route('edit_image_category') }}",
                     type: "POST",
                     data: {
                         _token: _token,
@@ -273,7 +231,7 @@
                             toastr.success('Sửa thành công!');
                             $("#image-main").addClass('running');
                             $.ajax({
-                                url: "{{ route('ajax-image-product-main') }}",
+                                url: "{{ route('ajax_image_slider_main') }}",
                                 type: "POST",
                                 data: {
                                     _token: _token,

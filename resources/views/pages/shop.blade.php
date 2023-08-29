@@ -22,36 +22,40 @@
                 <div class="col-lg-3 col-md-5">
                     <div class="sidebar">
                         <div class="sidebar__item ">
-                            <h4>Department</h4>
+                            <h4>Danh Mục</h4>
                             <ul>
                                 <li class="active" data-filter="*">All</li>
                                 @foreach ($categories as $item)
-                                    <li data-filter=".{{ $item->slug }}">{{ $item->name }}</li>
+                                    <li data-filter=".{{ $item->slug }}"> <a
+                                            href="{{ url('category/' . $item->slug) }}">{{ $item->name }}</a></li>
                                 @endforeach
                             </ul>
                         </div>
-
-
                         <div class="sidebar__item">
                             <div class="latest-product__text">
-                                <h4>Latest Products</h4>
+                                <h4>Sản Phẩm Mới</h4>
                                 <div class="latest-product__slider owl-carousel">
-                                    @foreach ($featured_products as $item)
-                                        <div class="latest-prdouct__slider__item">
-                                            <a href="#" class="latest-product__item">
-                                                <div class="latest-product__item__pic">
-                                                    <img src="{{ $item->image }}" alt="">
-                                                </div>
-                                                <div class="latest-product__item__text">
-                                                    <h6>{{ $item->name }}</h6>
-                                                    <span>{{ $item->cost_price }}</span>
-                                                </div>
-                                            </a>
+                                    @php
+                                        $featured_products_array = $featured_products->toArray();
+                                        $chunks = array_chunk($featured_products_array, 2);
+                                    @endphp
 
+                                    @foreach ($chunks as $chunk)
+                                        <div class="latest-prdouct__slider__item">
+                                            @foreach ($chunk as $item)
+                                                <div class="latest-product__item">
+                                                    <div class="latest-product__item__pic">
+                                                        <img src="{{ $item['image'] }}" alt="">
+                                                    </div>
+                                                    <div class="latest-product__item__text">
+                                                        <h6>{{ $item['name'] }}</h6>
+                                                        <span>{{ $item['cost_price'] }}</span>
+                                                    </div>
+                                                </div>
+                                            @endforeach
                                         </div>
                                     @endforeach
                                 </div>
-
                             </div>
                         </div>
                     </div>

@@ -26,17 +26,19 @@
     <link rel="stylesheet" href="{{ url('page/css/style.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ url('plugins/sweetalert2.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ url('plugins/toastr.min.css') }}">
-{{--    <link rel="stylesheet" href="{{ url('css/jquery.modal.min.css') }}">--}}
+    @yield('css')
+    {{--    <link rel="stylesheet" href="{{ url('css/jquery.modal.min.css') }}"> --}}
 </head>
+
 <body>
     <!-- Page Preloder -->
-{{--    <div id="preloder">--}}
-{{--        <div class="loader">--}}
-{{--            <div class="header__logo">--}}
-{{--                <a href="{{ route('home') }}"><img src="{{ url('lg.png') }}" alt=""></a>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
+    {{--    <div id="preloder"> --}}
+    {{--        <div class="loader"> --}}
+    {{--            <div class="header__logo"> --}}
+    {{--                <a href="{{ route('home') }}"><img src="{{ url('lg.png') }}" alt=""></a> --}}
+    {{--            </div> --}}
+    {{--        </div> --}}
+    {{--    </div> --}}
     @include('pages.layouts.header')
     @yield('content')
     @include('pages.layouts.footer')
@@ -56,15 +58,15 @@
             </div>
         </div>
     </div>
-{{--    <div id="loading" class="ws-over open">--}}
-{{--        <div class="ws-container">--}}
-{{--            <div class="loader">--}}
-{{--                <div class="header__logo">--}}
-{{--                    <a href="{{ route('home') }}"><img src="{{ url('lg.png') }}" alt=""></a>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
+    {{--    <div id="loading" class="ws-over open"> --}}
+    {{--        <div class="ws-container"> --}}
+    {{--            <div class="loader"> --}}
+    {{--                <div class="header__logo"> --}}
+    {{--                    <a href="{{ route('home') }}"><img src="{{ url('lg.png') }}" alt=""></a> --}}
+    {{--                </div> --}}
+    {{--            </div> --}}
+    {{--        </div> --}}
+    {{--    </div> --}}
     <script src="{{ url('page/js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ url('page/js/bootstrap.min.js') }}"></script>
     <script src="{{ url('page/js/jquery.nice-select.min.js') }}"></script>
@@ -82,4 +84,5 @@
     @include('pages.customjs')
     @yield('script')
 </body>
+
 </html>

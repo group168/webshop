@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -21,6 +22,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $limit = 10;
+        $role = Role::all();
         if ($request->session()->has('limit')) {
             $limit = $request->session()->get('limit');
         }
@@ -35,7 +37,7 @@ class UserController extends Controller
         if ($request->ajax) {
             return view('dashboards.ajax.body-table-product', ['lists' => $user]);
         }
-        return view('dashboards.user.index', ['title' => 'User', 'lists' => $user, 'users' => User::orderBy('id', 'desc')]);
+        return view('dashboards.user.index', ['title' => 'User', 'lists' => $user, 'users' => User::orderBy('id', 'desc'), 'role' => $role]);
         // return view('dashboards.user.index');
     }
     public function post_add(Request $request)
@@ -59,6 +61,7 @@ class UserController extends Controller
             // $user->name_en = vn_to_str($request->name);
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
+            $user->role = $request->role;
             $user->save();
             return response()->json(array('status' => 1, 'id' => $user->id, 'msg' => 'Thêm user thành công!'), 200);
         }
@@ -82,16 +85,17 @@ class UserController extends Controller
     }
     public function get_edit(Request $request)
     {
+        $role = Role::all();
         if ($request->id) {
             $user = User::find($request->id);
             if ($user)
-                return view('dashboards.user.edit', ['title' => 'Sửa user', 'user' => $user, 'users' => User::orderBy('name', 'desc')->get()]);
+                return view('dashboards.user.edit', ['title' => 'Sửa user', 'user' => $user, 'users' => User::orderBy('name', 'desc')->get(), 'role' => $role]);
             return redirect(route('user'));
         }
         return redirect(route('user'));
     }
     public function post_edit($id, Request $request)
-    {
+    {;
         if ($request->name) {
             $user = User::find($request->id);
             if ($user) {
@@ -111,11 +115,13 @@ class UserController extends Controller
                 // $user->email = $request->email;
                 // $user->name_en = vn_to_str($request->name);
                 // $user->password = $request->password;
+                // $user->role = $request->role;
                 // $user->save();
                 User::find($id)->update([
                     'name' => $request->name,
                     'email' => $request->email,
                     'password' => Hash::make($request->password),
+                    'role' => $request->role,
                 ]);
                 return redirect()->route('user');
             }

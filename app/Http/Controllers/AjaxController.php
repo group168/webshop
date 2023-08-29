@@ -39,7 +39,7 @@ class AjaxController extends Controller
                 if ($wish->id) {
                     $count_wish = Wish::where('user_id', Auth::user()->id)->get();
                     return response()->json(array(
-                        'msg' => 'Thêm vào yêu thích thành công.',
+                        'msg' => 'Thêm vào yêu thích thành công 1.',
                         'status' => 1,
                         'wish' => $count_wish->count()
                     ), 200);

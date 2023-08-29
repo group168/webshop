@@ -37,6 +37,8 @@ class PageController extends Controller
             $wishes = Auth::user()->wish()->pluck('product_id')->toArray();
             $carts = Auth::user()->cart()->pluck('product_id')->toArray();
         }
+        // 'slide' => Slides::where('status', true)->inRandomOrder()->first(),
+        $slide = Slides::where('status', true)->get();
         return view('pages.home', [
             'title' => 'Trang Chủ',
             'categories' => Categories::where('status', true)->get(),
@@ -44,7 +46,7 @@ class PageController extends Controller
                 ->orderBy('id', 'desc')
                 ->limit(12)
                 ->get(),
-            'slide' => Slides::where('status', true)->inRandomOrder()->first(),
+            'slide' => $slide,
         ]);
     }
     public function product_detail(Request $request)

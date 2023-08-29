@@ -4,6 +4,7 @@ use Dashboard\UserController;
 use Dashboard\DashboardsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\DashboardsControllerAdmin;
+use Illuminate\Support\Facades\Redirect;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,11 +23,7 @@ Route::get('/dashboards-logout', 'DashboardController@get_logout')->name('dashbo
 Route::get('/my-wish', 'PageController@index')->name('my-wish');
 Route::get('/my-cart', 'PageController@index')->name('my-cart');
 
-
 Route::group(['prefix' => 'dashboards', 'middleware' => 'dashboards'], function () {
-    // Route::get('/', function () {
-    //     return view('dashboards.dashboard');
-    // })->name('dashboards');
     Route::get('/', 'Dashboard\DashboardsControllerAdmin@index')->name('dashboards');
 
     Route::group(['prefix' => 'session'], function () {
@@ -38,17 +35,19 @@ Route::group(['prefix' => 'dashboards', 'middleware' => 'dashboards'], function 
         Route::get('/', 'Dashboard\SlideController@index')->name('slide');
         Route::post('/add', 'Dashboard\SlideController@post_add')->name('add-slide');
         Route::post('/change', 'Dashboard\SlideController@post_change')->name('change-slide');
-        Route::post('/delete', 'Dashboard\SlideController@post_delete')->name('delete-slide');
-        Route::post('/deletes', 'Dashboard\SlideController@post_deletes')->name('delete-slides');
+        Route::get('/delete/{id}', 'Dashboard\SlideController@post_delete')->name('delete-slide');
+
         Route::get('/edit/{id?}', 'Dashboard\SlideController@get_edit')->name('edit-sliders');
-        Route::post('/edit{id}', 'Dashboard\SlideController@post_edit')->name('update-sliders');
+        Route::post('/edit', 'Dashboard\SlideController@post_edit')->name('update-sliders');
+
+        Route::post('/edit_image_slide', 'Dashboard\SlideController@edit_image_slide')->name('edit_image_slide');
+        Route::post('/ajax_image_slider_main', 'Dashboard\SlideController@ajax_image_slider_main')->name('ajax_image_slider_main');
     });
     Route::group(['prefix' => 'category'], function () {
         Route::get('/', 'Dashboard\CategoryController@index')->name('category');
         Route::post('/add', 'Dashboard\CategoryController@post_add')->name('add-category');
         Route::get('/view/{id?}', 'Dashboard\CategoryController@post_view')->name('view-category');
-        // Route::post('/edit', 'Dashboard\CategoryController@post_edit')->name('edit-category');
-        // Route::get('/edit/{id?}', 'Dashboard\CategoryController@get_edit')->name('edit-category');
+
         Route::get('/edit/{id?}', 'Dashboard\CategoryController@get_edit')->name('edit-category');
         Route::post('/edit', 'Dashboard\CategoryController@post_edit')->name('update-category');
 
@@ -56,7 +55,9 @@ Route::group(['prefix' => 'dashboards', 'middleware' => 'dashboards'], function 
         Route::post('/deletes', 'Dashboard\CategoryController@post_deletes')->name('delete-categories');
         Route::post('/change', 'Dashboard\CategoryController@post_change')->name('change-category');
         Route::post('/seach', 'Dashboard\CategoryController@seach')->name('search-category');
+        Route::post('/edit_image_category', 'Dashboard\CategoryController@edit_image_category')->name('edit_image_category');
         Route::get('/category-products/{id?}', 'Dashboard\CategoryController@get_view_products')->name('view-category-products');
+        Route::post('/ajax_image_slider_main', 'Dashboard\CategoryController@ajax_image_slider_main')->name('ajax_image_slider_main');
     });
     Route::group(['prefix' => 'product'], function () {
         Route::get('/', 'Dashboard\ProductController@index')->name('product');
@@ -76,8 +77,9 @@ Route::group(['prefix' => 'dashboards', 'middleware' => 'dashboards'], function 
     });
     Route::group(['prefix' => 'order'], function () {
         Route::get('/', 'Dashboard\OrderController@index')->name('order');
-        //        Route::post('/add', 'Dashboard\ProductController@post_add')->name('add-product');
         Route::get('/view/{id?}', 'Dashboard\OrderController@post_view')->name('view-order');
+        Route::get('/delete/{id}', 'Dashboard\OrderController@post_delete')->name('delete-order');
+
         //        Route::post('/edit', 'Dashboard\ProductController@post_edit')->name('edit-product');
         //        Route::get('/edit/{id?}', 'Dashboard\ProductController@get_edit')->name('edit-product');
         //        Route::post('/delete', 'Dashboard\ProductController@post_delete')->name('delete-product');
@@ -111,7 +113,6 @@ Route::group(['prefix' => 'ajax'], function () {
     Route::post('/add-wish', 'AjaxController@post_add_wish')->name('add-wish');
     Route::post('/remove-wish', 'AjaxController@post_remove_wish')->name('remove-wish');
     Route::post('/add-cart', 'AjaxController@post_add_cart')->name('add-cart');
-    //    Route::post('/remove-cart', 'AjaxController@post_remove_cart')->name('remove-cart');
     Route::post('/get-cart', 'AjaxController@post_get_cart')->name('get-cart');
     Route::post('/remove-product-cart', 'AjaxController@post_remove_product_cart')->name('remove-product-cart');
     Route::post('/dec-quantity', 'AjaxController@dec_quantity')->name('dec-quantity');
@@ -126,7 +127,7 @@ Route::get('/product/{slug?}', 'PageController@product_detail')->name('product-d
 Route::get('/category/{slug?}', 'PageController@category_detail')->name('category-detail');
 Route::get('/search', 'PageController@search')->name('search');
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
+    return Redirect()->route('home');
 })->name('dashboard');
 Route::get('auth/facebook', 'SocialController@facebookRedirect');
 

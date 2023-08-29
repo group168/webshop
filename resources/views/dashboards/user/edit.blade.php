@@ -53,6 +53,16 @@
                                     <input type="text" name="password" value="{{ $user->password }}" class="form-control"
                                         id="password" aria-describedby="Giá khuyến mãi" placeholder="Password">
                                 </div>
+                                <div class="form-group fill">
+                                    <label for="product_price">Role</label>
+                                    <select name="role" id="role" class="col-md-6">
+                                        @foreach ($role as $item)
+                                            <option value="{{ $item->name }}">{{ $item->name }}
+                                            </option>
+                                        @endforeach
+                                        <small class="form-text text-muted"></small>
+                                    </select>
+                                </div>
 
                             </div>
 
