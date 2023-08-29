@@ -29,40 +29,19 @@ class PageController extends Controller
             'product_count' => $product_count
         ]);
     }
-    public function index(Request $request)
+    public function index()
     {
-        $wishes = [];
-        $carts = [];
-        if (Auth::user()) {
-            $wishes = Auth::user()->wish()->pluck('product_id')->toArray();
-            $carts = Auth::user()->cart()->pluck('product_id')->toArray();
-        }
-        // 'slide' => Slides::where('status', true)->inRandomOrder()->first(),
         $slide = Slides::where('status', true)->get();
+        $product = Products::where('status', true)
+            ->orderBy('id', 'desc')
+            ->limit(12)
+            ->get();
         return view('pages.home', [
             'title' => 'Trang Chủ',
             'categories' => Categories::where('status', true)->get(),
-            'featured_products' => Products::where('status', true)
-                ->orderBy('id', 'desc')
-                ->limit(12)
-                ->get(),
+            'featured_products' => $product,
             'slide' => $slide,
         ]);
-    }
-    public function product_detail(Request $request)
-    {
-        if (($slug = $request->slug) && $slug != '') {
-            $data = Products::where('slug', $slug)->get()->first();
-            $related = Products::all()->random(4);
-            if ($data) {
-                return view('pages.product', [
-                    'title' => $data->name,
-                    'product' => $data,
-                    'related' => $related
-                ]);
-            }
-        }
-        return redirect()->route('home');
     }
     public function category_detail(Request $request)
     {
@@ -79,6 +58,22 @@ class PageController extends Controller
         }
         return redirect()->route('home');
     }
+    public function product_detail(Request $request)
+    {
+        if (($slug = $request->slug) && $slug != '') {
+            $data = Products::where('slug', $slug)->get()->first();
+            $related = Products::all()->random(4);
+            if ($data) {
+                return view('pages.product', [
+                    'title' => $data->name,
+                    'product' => $data,
+                    'related' => $related
+                ]);
+            }
+        }
+        return redirect()->route('home');
+    }
+
     public function search(Request $request)
     {
         $product = $request->input('search_key');

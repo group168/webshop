@@ -1207,7 +1207,7 @@ hero__categories {
 .featured__item__pic .wish.active {
     top: 10px !important;
     right: 10px !important;
-    background-color: -webkit-linear-gradient(35deg, #de2d13 0%, #f0860d 100%);;
+    background-color: #de2d13;
     color: #ffffff;
     opacity: 1;
 }

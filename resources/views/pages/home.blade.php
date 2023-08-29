@@ -1,8 +1,8 @@
 @extends('pages.layouts.app')
 @section('title', 'Trang Chủ')
-@section('css')
+{{-- @section('css')
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-@endsection
+@endsection --}}
 @section('content')
     <section>
         <div class="container mt-5">
@@ -67,7 +67,6 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title">
-
                         <h2>{{ trans('page.product_new') }}</h2>
                     </div>
                     <div class="featured__controls">
@@ -88,7 +87,7 @@
                     @foreach ($featured_products as $item)
                         <div
                             class="col-lg-3 col-md-4 col-sm-6 mix @foreach ($item->categories as $items) {{ $items->category->slug }} @endforeach">
-                            @include('pages.layouts.product', ['product' => $item])
+                            @include('pages.layouts.product', ['item' => $item])
                         </div>
                     @endforeach
                 @endif
@@ -99,7 +98,8 @@
 
 @endsection
 @section('script')
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> --}}
 @endsection

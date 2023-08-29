@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
-use App\Models\Products;
 use App\Models\User;
 use App\Models\Wish;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
-use Validator;
+use App\Models\Products;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Validator;
 
 class AjaxController extends Controller
 {

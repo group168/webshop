@@ -9,7 +9,7 @@
                     <ul>
                         <li><i class="fa-2x fa fa-map-marker mr-2"></i>Địa Chỉ: <b>Nam Sơn - Linh Sơn - Thái Nguyên</b>
                         </li>
-                        <li><i class="fa-2x fa fa-mobile-phone mr-2"></i>Phone: <b>+84395274140</b></li>
+                        <li><i class="fa-2x fa fa-mobile-phone mr-2"></i>Phone: <b>+84389898989</b></li>
                         <li><i class="fa fa-envelope mr-2"></i>Email: <b>support@winshop.vn</b></li>
                     </ul>
                 </div>
