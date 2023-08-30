@@ -118,24 +118,20 @@
                                         <p>{{ trans('page.select_payment') }}<span>*</span></p>
                                     </div>
                                     <div class="col-md-8 col-xs-12">
-                                        @if (check_pay('vnpay'))
-                                            <div class="col-md-12 form-check my-2">
-                                                <input class="form-check-input" type="radio" name="payment" id="VNPAY"
-                                                    value="vnpay" @if (old('payment') == 'vnpay') checked @endif>
-                                                <label class="form-check-label" for="VNPAY">
-                                                    {{ trans('page.vnpay') }}
-                                                </label>
-                                            </div>
-                                        @endif
-                                        @if (check_pay('cod'))
-                                            <div class="col-md-12 form-check my-2">
-                                                <input class="form-check-input" type="radio" name="payment" id="COD"
-                                                    value="cod" @if (old('payment') == 'cod') checked @endif>
-                                                <label class="form-check-label" for="COD">
-                                                    {{ trans('page.cod') }}
-                                                </label>
-                                            </div>
-                                        @endif
+                                        <div class="col-md-12 form-check my-2">
+                                            <input class="form-check-input" type="radio" name="payment" id="VNPAY"
+                                                value="vnpay" @if (old('payment') == 'vnpay') checked @endif>
+                                            <label class="form-check-label" for="VNPAY">
+                                                {{ trans('page.vnpay') }}
+                                            </label>
+                                        </div>
+                                        <div class="col-md-12 form-check my-2">
+                                            <input class="form-check-input" type="radio" name="payment" id="COD"
+                                                value="cod" @if (old('payment') == 'cod') checked @endif>
+                                            <label class="form-check-label" for="COD">
+                                                {{ trans('page.cod') }}
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                                 <button type="submit" class="site-btn">{{ trans('page.pay_ment') }}</button>

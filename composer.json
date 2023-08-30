@@ -21,6 +21,7 @@
         "laravel/socialite": "^5.2",
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.0",
+        "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-analytics": "^4.0",
         "spatie/laravel-permission": "^4.0"
     },

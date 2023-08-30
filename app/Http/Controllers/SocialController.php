@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Models\User;
-use Validator;
-use Socialite;
 use Exception;
-use Auth;
+
+use Validator;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
 
 class SocialController extends Controller
 {
@@ -23,14 +23,13 @@ class SocialController extends Controller
 
             $user = Socialite::driver('facebook')->user();
             $isUser = User::where('fb_id', $user->id)->first();
-
-            if($isUser){
+            if ($isUser) {
                 Auth::login($isUser);
                 return redirect('/dashboard');
-            }else{
+            } else {
                 echo $user->id;
                 $exits = User::where('email', $user->email)->first();
-                if($exits){
+                if ($exits) {
                     $exits->fb_id = $user->id;
                     $exits->save();
                     Auth::login($exits);
@@ -45,7 +44,6 @@ class SocialController extends Controller
                 Auth::login($createUser);
                 return redirect('/dashboard');
             }
-
         } catch (Exception $exception) {
             dd($exception->getMessage());
         }

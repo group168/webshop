@@ -79,18 +79,6 @@ Route::group(['prefix' => 'dashboards', 'middleware' => 'dashboards'], function 
         Route::get('/', 'Dashboard\OrderController@index')->name('order');
         Route::get('/view/{id?}', 'Dashboard\OrderController@post_view')->name('view-order');
         Route::get('/delete/{id}', 'Dashboard\OrderController@post_delete')->name('delete-order');
-
-        //        Route::post('/edit', 'Dashboard\ProductController@post_edit')->name('edit-product');
-        //        Route::get('/edit/{id?}', 'Dashboard\ProductController@get_edit')->name('edit-product');
-        //        Route::post('/delete', 'Dashboard\ProductController@post_delete')->name('delete-product');
-        //        Route::post('/deletes', 'Dashboard\ProductController@post_deletes')->name('delete-products');
-        //        Route::post('/add-image-product', 'Dashboard\ProductController@add_image_product')->name('add-image-product');
-        //        Route::post('/ajax-image-product', 'Dashboard\ProductController@ajax_image_product')->name('ajax-image-product');
-        //        Route::post('/delete-image-product', 'Dashboard\ProductController@delete_image_product')->name('delete-image-product');
-        //        Route::post('/edit-image-product', 'Dashboard\ProductController@edit_image_product')->name('edit-image-product');
-        //        Route::post('/ajax-image-product-main', 'Dashboard\ProductController@ajax_image_product_main')->name('ajax-image-product-main');
-        //        Route::post('/change', 'Dashboard\ProductController@post_change')->name('change-product');
-        //        Route::post('/seach', 'Dashboard\ProductController@seach')->name('search-product');
     });
     Route::group(['prefix' => 'user'], function () {
         Route::get('/', 'Dashboard\UserController@index')->name('user');
@@ -100,7 +88,8 @@ Route::group(['prefix' => 'dashboards', 'middleware' => 'dashboards'], function 
         Route::get('/delete/{id}', 'Dashboard\UserController@post_delete')->name('delete-user');
     });
     Route::group(['prefix' => 'payment'], function () {
-        Route::get('/', 'Dashboard\ProductController@index')->name('payment');
+        Route::get('/', 'Dashboard\PaymentController@index')->name('payment');
+        Route::post('/change', 'Dashboard\PaymentController@post_change')->name('change-payment');
     });
     Route::group(['prefix' => 'config'], function () {
         Route::get('/', 'Dashboard\ProductController@index')->name('config');
@@ -136,8 +125,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('/check-out', 'OrderController@check_out')->name('check-out');
     Route::get('/proccess-check-out', 'OrderController@proccess_check_out')->name('proccess-check-out');
     Route::post('/payment-check-out', 'OrderController@payment_check_out')->name('payment-check-out');
-    Route::get('/vnp', 'VNPay@create')->name('vnpay');
-    Route::get('/payment-return', 'VNPay@return')->name('payment-return');
+    Route::get('/vnp/{id}', 'VNPay@create')->name('vnpay');
 
 
 

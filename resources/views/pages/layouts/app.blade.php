@@ -58,6 +58,8 @@
             </div>
         </div>
     </div>
+
+    </div>
     {{--    <div id="loading" class="ws-over open"> --}}
     {{--        <div class="ws-container"> --}}
     {{--            <div class="loader"> --}}

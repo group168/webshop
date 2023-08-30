@@ -107,7 +107,8 @@ class OrderController extends Controller
                     $request->request->add(['id' => $order->id]);
                     $request->request->add(['info' => 'Pay fot order ' . $order->id]);
                     if ($request->payment == 'vnpay') {
-                        return redirect()->route('vnpay', ['id' => $order->id, 'info' => 'Pay fot order ' . $order->id, 'total' => $order->total]);
+                        // return view('pages.vnp');
+                        return redirect()->route('vnpay', ['id' => $order->id]);
                     }
                     if ($request->payment == 'cod') {
                         $order->status = true;
