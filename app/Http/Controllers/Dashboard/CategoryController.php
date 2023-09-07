@@ -28,6 +28,8 @@ class CategoryController extends Controller
         } else {
             $lists = Categories::orderBy('name', 'desc')->paginate($limit);
         }
+
+
         if ($request->ajax) {
             return view('dashboards.ajax.body-table-category', ['lists' => $lists]);
         }
@@ -64,6 +66,7 @@ class CategoryController extends Controller
     }
     public function seach(Request $request)
     {
+
         $limit = 10;
         if ($request->session()->has('limit')) {
             $limit = $request->session()->get('limit');

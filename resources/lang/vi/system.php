@@ -19,7 +19,7 @@ return [
 
     'min_product' => 'Sản phẩm tối thiểu là 1',
 
-    'not_check' => '<span class="secondary">Chưa đặt hàng</span>',
+    'not_check' => '<span class="secondary" style="color:#ffffff;">Chưa đặt hàng</span>',
     'progress' => '<span class="text-warning">Đang xử lý</span>',
     'pack' => '<span class="text-info">Đang đóng gói</span>',
     'shipping' => '<span class="text-info">Đang vận chuyển</span>',

@@ -131,6 +131,7 @@ a.badge {
 .noloading {
     display: none;
     width: 100%;
+    color: #000;
 }
 .onloading.active,
 .noloading.active {
@@ -139,11 +140,13 @@ a.badge {
     display: flex !important;
     align-items: center;
     justify-content: center;
+
 }
 .wish .onloading,
 .wish .noloading {
     display: none;
     width: 100%;
+
 }
 .vn-select {
     width: 100%;
