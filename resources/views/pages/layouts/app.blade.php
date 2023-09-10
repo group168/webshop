@@ -26,7 +26,12 @@
     <link rel="stylesheet" href="{{ url('page/css/style.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ url('plugins/sweetalert2.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ url('plugins/toastr.min.css') }}">
+    <link href="{{ asset('chatbot/css/main.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('chatbot/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('chatbot/css/chatBot.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('chatbot/css/timeline.css') }}" rel="stylesheet" type="text/css" />
     @yield('css')
+
     {{--    <link rel="stylesheet" href="{{ url('css/jquery.modal.min.css') }}"> --}}
 </head>
 
@@ -41,6 +46,8 @@
     {{--    </div> --}}
     @include('pages.layouts.header')
     @yield('content')
+    @include('pages.layouts.blog')
+    @include('pages.layouts.chatBot')
     @include('pages.layouts.footer')
     <div id="cart" class="ws-over close">
         <div class="ws-container">
@@ -83,8 +90,58 @@
 
     <script src="{{ url('plugins/sweetalert2.min.js') }}"></script>
     <script src="{{ url('plugins/toastr.min.js') }}"></script>
+    {{-- chatbot --}}
+    <script type="text/javascript">
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m);
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83834093-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
     @include('pages.customjs')
     @yield('script')
+    <script src="{{ asset('chatbot/js/jquery-3.1.1.min.js') }}"></script>
+    <script src="{{ asset('chatbot/js/popper.min.js') }}"></script>
+    <script src="{{ asset('chatbot/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('chatbot/js/js/select2.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $(".select2_el").select2({});
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            //Toggle fullscreen
+            $(".chat-bot-icon").click(function(e) {
+                $(this).children('img').toggleClass('hide');
+                $(this).children('svg').toggleClass('animate');
+                $('.chat-screen').toggleClass('show-chat');
+            });
+            $('.chat-mail button').click(function() {
+                $('.chat-mail').addClass('hide');
+                $('.chat-body').removeClass('hide');
+                $('.chat-input').removeClass('hide');
+                $('.chat-header-option').removeClass('hide');
+            });
+            $('.end-chat').click(function() {
+                $('.chat-body').addClass('hide');
+                $('.chat-input').addClass('hide');
+                $('.chat-session-end').removeClass('hide');
+                $('.chat-header-option').addClass('hide');
+            });
+        });
+    </script>
+    {{-- end chatbot --}}
 </body>
 
 </html>

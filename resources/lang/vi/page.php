@@ -25,12 +25,12 @@ return [
     'no_have_address' => 'Bạn chưa có địa chỉ',
     'billing_detail' => 'Thông tin đơn hàng',
     'add_address' => 'Thêm địa chỉ',
-    'select_address' =>'Chọn địa chỉ',
-    'select_your_address' =>'Chọn địa chỉ của bạn',
-    'your_order' =>'Chi tiêt đơn hàng',
-    'select_payment' =>'Phương thức thanh toán',
-    'vnpay' =>'VN Pay',
-    'cod' =>'Thanh toán khi nhận hàng',
+    'select_address' => 'Chọn địa chỉ',
+    'select_your_address' => 'Chọn địa chỉ của bạn',
+    'your_order' => 'Chi tiêt đơn hàng',
+    'select_payment' => 'Phương thức thanh toán',
+    'vnpay' => 'VN Pay',
+    'cod' => 'Thanh toán khi nhận hàng',
 
     //Trạng thái đơn hàng
     'add_to_cart' => 'Thêm Vào Giỏ',

@@ -4225,6 +4225,32 @@ select:focus {
     text-align: left;
     margin-bottom: 100px;
 }
+.ws-modal_vpn {
+    /*display: none;*/
+    top: 30px;
+    transition: all 0.5s ease;
+    vertical-align: middle;
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+    box-sizing: border-box;
+    width: 100%;
+    background: #fff;
+    padding: 15px 30px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -o-border-radius: 8px;
+    -ms-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-box-shadow: 0 0 10px #000;
+    -moz-box-shadow: 0 0 10px #000;
+    -o-box-shadow: 0 0 10px #000;
+    -ms-box-shadow: 0 0 10px #000;
+    box-shadow: 0 0 10px #000;
+    text-align: left;
+    margin-bottom: 100px;
+    display: flex;
+}
 
 .ws-modal .close-modal {
     position: absolute;

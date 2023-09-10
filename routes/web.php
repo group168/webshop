@@ -22,7 +22,7 @@ Route::post('/dashboards-login', 'DashboardController@post_login')->name('dashbo
 Route::get('/dashboards-logout', 'DashboardController@get_logout')->name('dashboards-logout');
 Route::get('/my-wish', 'PageController@index')->name('my-wish');
 Route::get('/my-cart', 'PageController@index')->name('my-cart');
-
+Route::get('/change-locale/{lang}', 'LocaleController@changeLocale')->name('change.locale');
 Route::group(['prefix' => 'dashboards', 'middleware' => 'dashboards'], function () {
     Route::get('/', 'Dashboard\DashboardsControllerAdmin@index')->name('dashboards');
 

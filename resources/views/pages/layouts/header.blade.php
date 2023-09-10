@@ -93,18 +93,11 @@
     </div>
     <nav class="humberger__menu__nav mobile-menu">
         <ul>
-            <li class="active"><a href="./index.html">Trang Chủ</a></li>
-            <li><a href="./shop-grid.html">Mua Sắm</a></li>
-            <li><a href="#">Blog</a>
-                <ul class="header__menu__dropdown">
-                    <li><a href="./shop-details.html">Shop Details</a></li>
-                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                    <li><a href="./checkout.html">Check Out</a></li>
-                    <li><a href="./blog-details.html">Blog Details</a></li>
-                </ul>
-            </li>
-            <li><a href="./blog.html">Liên Hệ</a></li>
+            <li class="active"><a href="{{ route('home') }}">Trang Chủ</a></li>
+            <li><a href="{{ route('shop') }}">Mua Sắm</a></li>
+            <li><a href="{{ route('contact') }}">Liên Hệ</a></li>
         </ul>
+
     </nav>
     <div id="mobile-menu-wrap"></div>
     <div class="header__top__right__social">
@@ -140,15 +133,15 @@
                             <a href="https://twitter.com/winshopsvn"><i class="fa fa-twitter"></i></a>
                             <a href="https://www.pinterest.com/winshopsvn"><i class="fa fa-pinterest-p"></i></a>
                         </div>
-                        {{--                         <div class="header__top__right__language"> --}}
-                        {{--                            <img src="img/language.png" alt=""> --}}
-                        {{--                            <div>English</div> --}}
-                        {{--                            <span class="arrow_carrot-down"></span> --}}
-                        {{--                            <ul> --}}
-                        {{--                                <li><a href="#">Tiếng Việt</a></li> --}}
-                        {{--                                <li><a href="#">English</a></li> --}}
-                        {{--                            </ul> --}}
-                        {{--                        </div> --}}
+                        <div class="header__top__right__language">
+                            <img src="img/language.png" alt="">
+                            <div>English</div>
+                            <span class="arrow_carrot-down"></span>
+                            <ul>
+                                <li><a href="{{ route('change.locale', ['lang' => 'vi']) }}">Tiếng Việt</a></li>
+                                <li><a href="{{ route('change.locale', ['lang' => 'en']) }}">English</a></li>
+                            </ul>
+                        </div>
                         <div class="header__top__right__auth">
                             @if (Auth::user())
                                 <div class="ml-3 relative">
