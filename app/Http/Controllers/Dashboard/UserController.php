@@ -3,21 +3,24 @@
 namespace App\Http\Controllers\Dashboard;
 
 use Exception;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Services\UserAdminService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 
 class UserController extends Controller
 {
-    public function __construct()
+    protected $userAdminService;
+    public function __construct(UserAdminService $userAdminService)
     {
         $this->middleware('dashboards');
+        $this->userAdminService = $userAdminService;
     }
     public function index(Request $request)
     {
@@ -87,7 +90,8 @@ class UserController extends Controller
     {
         $role = Role::all();
         if ($request->id) {
-            $user = User::find($request->id);
+            $user = $this->userAdminService->getEdit($request);
+            // $user = User::find($request->id);
             if ($user)
                 return view('dashboards.user.edit', ['title' => 'Sửa user', 'user' => $user, 'users' => User::orderBy('name', 'desc')->get(), 'role' => $role]);
             return redirect(route('user'));

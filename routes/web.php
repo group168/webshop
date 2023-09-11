@@ -32,7 +32,7 @@ Route::group(['prefix' => 'dashboards', 'middleware' => 'dashboards'], function 
     });
 
     Route::group(['prefix' => 'slide'], function () {
-        Route::get('/', 'Dashboard\SlideController@index')->name('slide');
+        Route::get('/', 'Dashboard\SlideController@index')->middleware('checkRole')->name('slide');
         Route::post('/add', 'Dashboard\SlideController@post_add')->name('add-slide');
         Route::post('/change', 'Dashboard\SlideController@post_change')->name('change-slide');
         Route::get('/delete/{id}', 'Dashboard\SlideController@post_delete')->name('delete-slide');

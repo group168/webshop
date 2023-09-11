@@ -133,7 +133,7 @@
                             <a href="https://twitter.com/winshopsvn"><i class="fa fa-twitter"></i></a>
                             <a href="https://www.pinterest.com/winshopsvn"><i class="fa fa-pinterest-p"></i></a>
                         </div>
-                        <div class="header__top__right__language">
+                        {{-- <div class="header__top__right__language">
                             <img src="img/language.png" alt="">
                             <div>English</div>
                             <span class="arrow_carrot-down"></span>
@@ -141,7 +141,7 @@
                                 <li><a href="{{ route('change.locale', ['lang' => 'vi']) }}">Tiếng Việt</a></li>
                                 <li><a href="{{ route('change.locale', ['lang' => 'en']) }}">English</a></li>
                             </ul>
-                        </div>
+                        </div> --}}
                         <div class="header__top__right__auth">
                             @if (Auth::user())
                                 <div class="ml-3 relative">
