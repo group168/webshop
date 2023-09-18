@@ -86,7 +86,7 @@
                     </x-jet-dropdown>
                 </div>
             @else
-                <a href="#"><i class="fa fa-user"></i> Đăng Nhập</a>
+                <a href="{{ route('login') }}"><i class="fa fa-user"></i> Đăng Nhập</a>
             @endif
 
         </div>
