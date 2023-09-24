@@ -78,7 +78,10 @@ Route::group(['prefix' => 'dashboards', 'middleware' => 'dashboards'], function 
     Route::group(['prefix' => 'order'], function () {
         Route::get('/', 'Dashboard\OrderController@index')->name('order');
         Route::get('/view/{id?}', 'Dashboard\OrderController@post_view')->name('view-order');
+        Route::get('/edit/{id?}', 'Dashboard\OrderController@get_edit')->name('edit-order');
         Route::get('/delete/{id}', 'Dashboard\OrderController@post_delete')->name('delete-order');
+        //Route::get('/dashboards/order/change_status/{id}', 'Dashboard\OrderController@change_status')->name('change_status');
+        Route::get('/change_status/{id}/{status}', 'Dashboard\OrderController@change_status')->name('change_status');
     });
     Route::group(['prefix' => 'user'], function () {
         Route::get('/', 'Dashboard\UserController@index')->name('user');

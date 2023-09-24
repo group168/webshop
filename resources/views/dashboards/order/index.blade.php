@@ -1,5 +1,8 @@
 @extends('dashboards.layouts.app')
 @section('title', 'Dashboard')
+@section('style')
+
+@endsection
 @section('content')
     <div class="page-header">
         <div class="page-block">
@@ -273,25 +276,34 @@
                                                         </h4>
                                                     </td>
                                                     <td>
-                                                        <div class="btn btn-sm btn" style="background: #0c5460">
+                                                        {{-- <div class="btn btn-sm btn" style="background: #0c5460">
                                                             {!! trans(config('status.order')[$item->status]) !!}
+                                                        </div> --}}
+                                                        <div class="dropdown">
+                                                            <button
+                                                                class="btn btn-primary dropdown-toggle {!! trans(config('status.status')[$item->status]) !!}"
+                                                                type="button" data-toggle="dropdown">
+                                                                {!! trans(config('status.orders')[$item->status]) !!}
+                                                                <span class="caret"></span>
+                                                            </button>
+                                                            <ul class="dropdown-menu" name="status">
+                                                                @foreach (config('status.orders') as $status => $status_text)
+                                                                    <li>
+                                                                        <a href="{{ route('change_status', ['id' => $item->id, 'status' => $status]) }}"
+                                                                            class="update-status"
+                                                                            data-status="{{ $status }}"
+                                                                            data-url="{{ route('change_status', ['id' => $item->id, 'status' => $status]) }}">
+                                                                            {{ $status_text }}
+                                                                        </a>
+                                                                    </li>
+                                                                @endforeach
+                                                            </ul>
                                                         </div>
                                                     </td>
                                                     <td>
+
                                                         <button type="button"
-                                                            class="btn btn-icon btn-primary btn-view ld-over"
-                                                            data-id="{{ $item->id }}">
-                                                            <i class="fas fa-eye"></i>
-                                                            <div class="ld ld-ring ld-spin"></div>
-                                                        </button>
-                                                        <button type="button"
-                                                            class="btn btn-icon btn-success btn-edit ld-over"
-                                                            data-id="{{ $item->id }}">
-                                                            <i class="fas fa-pencil-alt"></i>
-                                                            <div class="ld ld-ring ld-spin"></div>
-                                                        </button>
-                                                        <button type="button"
-                                                            class="btn btn-icon btn-danger action_delete ld-over"
+                                                            class="btn btn-icon btn-danger action_delete ld-over rounded"
                                                             data-url="{{ route('delete-order', ['id' => $item->id]) }}">
                                                             <i class="fas fa-trash-alt"></i>
                                                             <div class="ld ld-ring ld-spin"></div>
@@ -318,36 +330,6 @@
     </div>
 @endsection
 @section('script')
-    <script src="{{ asset('js/ajax/user_ajax.js') }}"></script>
-    <script>
-        $(".btn-edit").click(function() {
-            _this = $(this);
-            _this.addClass('running');
-            id = _this.data('id');
-            window.location.href = '{{ route('edit-product') }}/' + id;
-        })
+    <script src="{{ asset('js/ajax/order_ajax.js') }}"></script>
 
-        var resize = $('#upload-demo').croppie({
-            enableExif: true,
-            enableOrientation: true,
-            viewport: {
-                width: 600,
-                height: 600,
-                type: 'square' //square
-            },
-            boundary: {
-                width: 650,
-                height: 650
-            }
-        });
-        $('#image').on('change', function() {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                resize.croppie('bind', {
-                    url: e.target.result
-                }).then(function() {});
-            }
-            reader.readAsDataURL(this.files[0]);
-        });
-    </script>
 @endsection

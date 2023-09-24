@@ -1,5 +1,5 @@
 @extends('pages.layouts.app')
-@section('title', $title )
+@section('title', $title)
 @section('content')
     <section class="breadcrumb">
         <div class="container">
@@ -19,46 +19,49 @@
                     <div class="shoping__cart__table">
                         <table>
                             <thead>
-                            <tr>
-                                <th>{{ trans('page.order_id') }}</th>
-                                <th>{{ trans('page.order_address') }}</th>
-                                <th>{{ trans('page.order_price') }}</th>
-                                <th>{{ trans('page.order_status') }}</th>
-                                <th></th>
-                            </tr>
+                                <tr>
+                                    <th>{{ trans('page.order_id') }}</th>
+                                    <th>{{ trans('page.order_address') }}</th>
+                                    <th>{{ trans('page.order_price') }}</th>
+                                    <th>{{ trans('page.order_status') }}</th>
+                                    <th></th>
+                                </tr>
                             </thead>
                             <tbody>
-                            @if(isset($orders) && $orders->count() > 0)
-                                @foreach($orders as $item)
-                                    <tr>
-                                        <td>
-                                            {{ $item->id }}
-                                        </td>
-                                        <td>
-                                            @if(isset($item->address) && $item->address)
-                                                {{ $item->address->address }}, {{ $item->address->ward }}
-                                                , {{ $item->address->district }}, {{ $item->address->province }}
-                                            @else
-                                                <div class="text-danger">
-                                                    <i>{{ trans('page.address_removed') }}</i>
-                                                </div>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            {{ number_format($item->total) }} {{ trans('page.currency') }}
-                                        </td>
-                                        <td>
-                                            {!! trans(config('status.order')[$item->status]) !!}
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-info btn-sm" href="{{ route('show-order', ['id'=>$item->id]) }}">{{ trans('page.view_order') }}</a>
-                                            @if($item->status < 2)
-                                            <div class="btn btn-sm btn-danger btn-cancel-order" data-id="{{ $item->id }}">{{ trans('page.cancel_order') }}</div>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @endif
+                                @if (isset($orders) && $orders->count() > 0)
+                                    @foreach ($orders as $item)
+                                        <tr>
+                                            <td>
+                                                {{ $item->id }}
+                                            </td>
+                                            <td>
+                                                @if (isset($item->address) && $item->address)
+                                                    {{ $item->address->address }}, {{ $item->address->ward }}
+                                                    , {{ $item->address->district }}, {{ $item->address->province }}
+                                                @else
+                                                    <div class="text-danger">
+                                                        <i>{{ trans('page.address_removed') }}</i>
+                                                    </div>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                {{ number_format($item->total) }} {{ trans('page.currency') }}
+                                            </td>
+                                            <td>
+                                                {!! trans(config('status.orders')[$item->status]) !!}
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-info btn-sm"
+                                                    href="{{ route('show-order', ['id' => $item->id]) }}">{{ trans('page.view_order') }}</a>
+                                                @if ($item->status < 2)
+                                                    <div class="btn btn-sm btn-danger btn-cancel-order"
+                                                        data-id="{{ $item->id }}">{{ trans('page.cancel_order') }}
+                                                    </div>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -70,10 +73,10 @@
 @endsection
 @section('script')
     <script>
-        $('.btn-cancel-order').click(function (){
+        $('.btn-cancel-order').click(function() {
             var _this = $(this);
             var id = _this.data('id');
-            if(id){
+            if (id) {
                 Swal.fire({
                     icon: 'question',
                     title: '{{ trans('page.alert_cancel_order') }}',
@@ -90,7 +93,7 @@
                                 _token: _token,
                                 id: id
                             },
-                            success: function (data) {
+                            success: function(data) {
                                 if (data.status == 1) {
                                     if (data.msg) {
                                         toastr.clear();
@@ -100,7 +103,7 @@
                                     if (data.msg) {
                                         toastr.clear();
                                         toastr.error(data.msg);
-                                    }else{
+                                    } else {
                                         toastr.clear();
                                         toastr.error('{{ trans('page.has_error') }}');
                                     }
@@ -108,7 +111,7 @@
                                 }
                                 location.reload();
                             },
-                            error: function (data) {
+                            error: function(data) {
                                 toastr.clear();
                                 toastr.error('{{ trans('page.has_error') }}');
                             }

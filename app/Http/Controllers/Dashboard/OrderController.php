@@ -19,21 +19,10 @@ class OrderController extends Controller
     }
     public function index(Request $request)
     {
-        $limit = 10;
+        $limit = 5;
         if ($request->session()->has('limit')) {
             $limit = $request->session()->get('limit');
         }
-        //        if($request->session()->has('sort-product')){
-        //            $sort = $request->session()->get('sort-product');
-        //            $sorts = $request->session()->get('sort-products');
-        //
-        //            $product = Products::orderBy($sort, $sorts)->paginate($limit);
-        //        }else{
-        //            $product = Products::orderBy('name', 'desc')->paginate($limit);
-        //        }
-        //        if($request->ajax){
-        //            return view('dashboards.ajax.body-table-product', ['lists'=>$product]);
-        //        }
         $order = Order::orderBy('id', 'desc')->with('user')->paginate($limit);
         // dd($order);
         return view('dashboards.order.index', [
@@ -56,6 +45,24 @@ class OrderController extends Controller
                 'message' => 'fail'
             ], 500);
         }
+    }
+    public function change_status(Request $request, $id, $status)
+    {
+
+        $order = Order::find($id);
+
+        if (!$order) {
+            return response()->json(['code' => 404, 'msg' => 'Order not found']);
+        }
+        if (!in_array($status, array_keys(config('status.orders')))) {
+            return response()->json(['code' => 400, 'msg' => 'Invalid status']);
+        }
+        $order->status = $status;
+        $order->save();
+        return redirect()->route('order');
+    }
+    public function get_edit(Request $request, $id)
+    {
     }
     public function post_view($id)
     {
