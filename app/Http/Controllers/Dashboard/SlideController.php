@@ -93,20 +93,22 @@ class SlideController extends Controller
         }
         return 0;
     }
-    public function post_delete($id)
+    public function post_delete(Request $request)
     {
-        try {
-            Slides::find($id)->delete();
-            return response()->json([
-                'code' => 200,
-                'message' => 'success'
-            ], 200);
-        } catch (Exception $exception) {
-            Log::error('Message' . $exception->getMessage());
-            return response()->json([
-                'code' => 500,
-                'message' => 'fail'
-            ], 500);
+        if ($request->id) {
+            try {
+                Slides::find($request->id)->delete();
+                return response()->json([
+                    'code' => 200,
+                    'message' => 'success'
+                ], 200);
+            } catch (Exception $exception) {
+                Log::error('Message' . $exception->getMessage());
+                return response()->json([
+                    'code' => 500,
+                    'message' => 'fail'
+                ], 500);
+            }
         }
     }
     public function post_deletes(Request $request)
