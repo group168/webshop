@@ -1,5 +1,5 @@
 @extends('pages.layouts.app')
-@section('title', $title )
+@section('title', $title)
 @section('content')
     <section class="breadcrumb">
         <div class="container">
@@ -19,47 +19,49 @@
                     <div class="shoping__cart__table">
                         <table>
                             <thead>
-                            <tr>
-                                <th>{{ trans('page.address_id') }}</th>
-                                <th>{{ trans('page.address_name') }}</th>
-                                <th>{{ trans('page.address_detail') }}</th>
-                                <th>
-                                    <div class="float-right btn btn-sm btn-info" id="btn-add-address">{!! trans('page.add_address') !!}</div>
-                                </th>
-                            </tr>
+                                <tr>
+                                    <th>{{ trans('page.address_id') }}</th>
+                                    <th>{{ trans('page.address_name') }}</th>
+                                    <th>{{ trans('page.address_detail') }}</th>
+                                    <th>
+                                        <div class="float-right btn btn-sm btn-info" id="btn-add-address">
+                                            {!! trans('page.add_address') !!}</div>
+                                    </th>
+                                </tr>
                             </thead>
                             <tbody>
-                            @if(isset($address) && $address->count() > 0)
-                                @foreach($address as $item)
-                                    <tr>
-                                        <td>
-                                            {{ $item->id }}
-                                        </td>
-                                        <td>
-                                            {{ $item->name }}
-                                        </td>
-                                        <td>
-                                            <ul class="text-left">
-                                                <li>Địa chỉ: <b>{{ $item->address }}, {{ $item->ward }}
-                                                        , {{ $item->district }}, {{ $item->province }}</b>
-                                                </li>
-                                                <li>
-                                                    Điện thoại: <b>{{ $item->phone }}</b>
-                                                </li>
-                                                <li>
-                                                    Email: <b>{{ $item->email?$item->email:'' }}</b>
-                                                </li>
-                                            </ul>
+                                @if (isset($address) && $address->count() > 0)
+                                    @foreach ($address as $item)
+                                        <tr>
+                                            <td>
+                                                {{ $item->id }}
+                                            </td>
+                                            <td>
+                                                {{ $item->name }}
+                                            </td>
+                                            <td>
+                                                <ul class="text-left">
+                                                    <li>Địa chỉ: <b>{{ $item->address }}, {{ $item->ward }}
+                                                            , {{ $item->district }}, {{ $item->province }}</b>
+                                                    </li>
+                                                    <li>
+                                                        Điện thoại: <b>{{ $item->phone }}</b>
+                                                    </li>
+                                                    <li>
+                                                        Email: <b>{{ $item->email ? $item->email : '' }}</b>
+                                                    </li>
+                                                </ul>
 
-                                        </td>
-                                        <td>
+                                            </td>
+                                            <td>
 
-                                            <div class="float-right mx-1 btn btn-sm btn-danger btn-delete-address" data-id="{{ $item->id }}">{{ trans('page.delete_address') }}</div>
-{{--                                            <a class="float-right mx-1 btn btn-info btn-sm" href="{{ route('show-order', ['id'=>$item->id]) }}">{{ trans('page.view_order') }}</a>--}}
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @endif
+                                                <div class="float-right mx-1 btn btn-sm btn-danger btn-delete-address"
+                                                    data-id="{{ $item->id }}">{{ trans('page.delete_address') }}</div>
+                                                {{--                                            <a class="float-right mx-1 btn btn-info btn-sm" href="{{ route('show-order', ['id'=>$item->id]) }}">{{ trans('page.view_order') }}</a> --}}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -91,7 +93,7 @@
                             <div class="col-lg-6">
                                 <div class="checkout__input">
                                     <p>Số điện thoại người nhận<span>*</span></p>
-                                    <input type="text" name="phone" class="required">
+                                    <input type="number" name="phone" class="required">
                                 </div>
                             </div>
                         </div>
@@ -116,7 +118,7 @@
                         </div>
                         <div class="checkout__input">
                             <p>Email người nhận</p>
-                            <input type="text" name="email">
+                            <input type="email" name="email">
                         </div>
                         <div class="checkout__input">
                             <button type="submit" id="add_address" class="site-btn" name="add">Thêm</button>
@@ -132,10 +134,10 @@
 @endsection
 @section('script')
     <script>
-        $('.btn-delete-address').click(function (){
+        $('.btn-delete-address').click(function() {
             var _this = $(this);
             var id = _this.data('id');
-            if(id){
+            if (id) {
                 Swal.fire({
                     icon: 'question',
                     title: '{{ trans('page.alert_delete_address') }}',
@@ -152,7 +154,7 @@
                                 _token: _token,
                                 id: id
                             },
-                            success: function (data) {
+                            success: function(data) {
                                 if (data.status == 1) {
                                     if (data.msg) {
                                         toastr.clear();
@@ -162,14 +164,14 @@
                                     if (data.msg) {
                                         toastr.clear();
                                         toastr.error(data.msg);
-                                    }else{
+                                    } else {
                                         toastr.clear();
                                         toastr.error('{{ trans('page.has_error') }}');
                                     }
                                 }
                                 location.reload();
                             },
-                            error: function (data) {
+                            error: function(data) {
                                 toastr.clear();
                                 toastr.error('{{ trans('page.has_error') }}');
                             }
@@ -188,32 +190,32 @@
             district: "district",
             ward: "ward"
         });
-        $('#address .close-modal').click(function (){
+        $('#address .close-modal').click(function() {
             ad_loading($('#address').find('.ws-loading'), false)
         });
-        $('#add_address').click(function (e) {
-            if($('#address').find('.ws-loading').hasClass('close')){
+        $('#add_address').click(function(e) {
+            if ($('#address').find('.ws-loading').hasClass('close')) {
                 ad_loading($('#address').find('.ws-loading'))
                 var check = 1;
-                $('#address-content input, #address-content select').each(function () {
-                    if (($(this).val() == '' || $(this).val() == null)  && $(this).hasClass('required')) {
+                $('#address-content input, #address-content select').each(function() {
+                    if (($(this).val() == '' || $(this).val() == null) && $(this).hasClass('required')) {
                         var tb = '';
-                        if($(this).attr("name") === 'name'){
+                        if ($(this).attr("name") === 'name') {
                             tb = 'Chưa nhập tên hiển thị!';
-                        }else if($(this).attr("name") === 'customer_name'){
+                        } else if ($(this).attr("name") === 'customer_name') {
                             tb = 'Chưa nhập tên người nhận!';
-                        }else if($(this).attr("name") === 'phone'){
+                        } else if ($(this).attr("name") === 'phone') {
                             tb = 'Chưa nhập số điện thoại người nhận!';
-                        }else if($(this).attr("name") === 'address'){
+                        } else if ($(this).attr("name") === 'address') {
                             tb = 'Chưa nhập địa chỉ nhà!';
-                        }else if($(this).attr("name") === 'province'){
+                        } else if ($(this).attr("name") === 'province') {
                             tb = 'Chưa chọn tỉnh/thành phố!';
-                        }else if($(this).attr("name") === 'district'){
+                        } else if ($(this).attr("name") === 'district') {
                             tb = 'Chưa chọn quận/huyện!';
-                        }else if($(this).attr("name") === 'ward'){
+                        } else if ($(this).attr("name") === 'ward') {
                             tb = 'Chưa chọn xã/phường/thị trấn!';
                         }
-                        if(tb!==''){
+                        if (tb !== '') {
                             toastr.clear();
                             toastr.error(tb);
                         }
@@ -224,7 +226,7 @@
                         return false;
                     }
                 });
-                if(check){
+                if (check) {
                     var name = $('#address-content input[name="name"]').val();
                     var customer_name = $('#address-content input[name="customer_name"]').val();
                     var phone = $('#address-content input[name="phone"]').val();
@@ -240,7 +242,7 @@
                     console.log(name);
 
                     $.ajax({
-                        url: "{{route('add-address')}}",
+                        url: "{{ route('add-address') }}",
                         type: "POST",
                         data: {
                             _token: _token,
@@ -253,24 +255,24 @@
                             district: district,
                             ward: ward
                         },
-                        success: function (data) {
+                        success: function(data) {
                             ad_loading($('#address').find('.ws-loading'))
                             if (data.status == 1) {
                                 ad_reset();
-                                if(data.msg) {
+                                if (data.msg) {
                                     toastr.clear();
                                     toastr.success(data.msg);
                                 }
                                 location.reload();
                             } else {
-                                if(data.error){
+                                if (data.error) {
                                     toastr.clear();
                                     toastr.error(data.error);
                                 }
 
                             }
                         },
-                        error: function (data) {
+                        error: function(data) {
                             ad_loading($('#address').find('.ws-loading'))
                             toastr.clear();
                             toastr.error('{{ trans('alert.has_error') }}');
@@ -283,29 +285,30 @@
             return false;
         });
 
-        $('#btn-add-address').click(function () {
+        $('#btn-add-address').click(function() {
             ad_loading($('#address').find('.ws-loading'), false)
             $('#address').removeClass('close');
             $('#address').addClass('open');
         });
-        function ad_reset(){
-            $('#address-content input, #address-content select').each(function () {
+
+        function ad_reset() {
+            $('#address-content input, #address-content select').each(function() {
                 $(this).val(null);
             });
         }
 
-        function ad_loading(_this, stt=''){
+        function ad_loading(_this, stt = '') {
 
-            if(_this.hasClass('close')){
+            if (_this.hasClass('close')) {
                 $('#address-content').hide();
                 _this.removeClass('close');
                 _this.addClass('open');
-            }else{
+            } else {
                 $('#address-content').show();
                 _this.removeClass('open');
                 _this.addClass('close');
             }
-            if(stt==false){
+            if (stt == false) {
                 $('#address-content').show();
                 _this.removeClass('open');
                 _this.addClass('close');

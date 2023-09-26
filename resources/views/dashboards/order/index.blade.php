@@ -29,68 +29,7 @@
                             <b>
                                 <h4 class="m-1 text-primary">DANH SÁCH ĐƠN HÀNG</h4>
                             </b>
-                            {{--                            <div id="add-product" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display: none;" aria-hidden="true"> --}}
-                            {{--                                <div class="modal-dialog modal-lg modal-dialog-centered" role="document"> --}}
-                            {{--                                    <div class="modal-content"> --}}
-                            {{--                                        <div class="modal-header"> --}}
-                            {{--                                            <h5 class="modal-title" id="exampleModalCenterTitle">Thêm Sản Phẩm</h5> --}}
-                            {{--                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button> --}}
-                            {{--                                        </div> --}}
-                            {{--                                        <div class="modal-body ld-over" id="add-form"> --}}
-                            {{--                                            <div class="ld ld-ring ld-spin"></div> --}}
-                            {{--                                            <form action="" method="post"> --}}
-                            {{--                                                <div class="row"> --}}
-                            {{--                                                    <div class="col-md-12"> --}}
-                            {{--                                                        <div class="form-group fill"> --}}
-                            {{--                                                            <label for="product_name">Tên sản phẩm</label> --}}
-                            {{--                                                            <input type="text" name="name" class="form-control" id="product_name" aria-describedby="Tên sản phẩm" placeholder="Tên sản phẩm"> --}}
-                            {{--                                                            <small id="product_name" class="form-text text-muted"></small> --}}
-                            {{--                                                        </div> --}}
-                            {{--                                                        <div class="form-group fill"> --}}
-                            {{--                                                            <label for="product_price">Giá sản phẩm</label> --}}
-                            {{--                                                            <input type="number" name="price" value="0" class="form-control" id="product_price" aria-describedby="Giá sản phẩm" placeholder="Giá sản phẩm"> --}}
-                            {{--                                                            <small class="form-text text-muted"></small> --}}
-                            {{--                                                        </div> --}}
-                            {{--                                                        <div class="form-group fill"> --}}
-                            {{--                                                            <label for="product_unit">Đơn vị tính</label> --}}
-                            {{--                                                            <input type="text" name="unit" class="form-control" id="product_unit" aria-describedby="Đơn vị tính" placeholder="Đơn vị tính"> --}}
-                            {{--                                                            <small class="form-text text-muted"></small> --}}
-                            {{--                                                        </div> --}}
-                            {{--                                                        <div class="form-group fill"> --}}
-                            {{--                                                            <label for="product_count">Số lượng</label> --}}
-                            {{--                                                            <input type="number" name="count" value="0" class="form-control" id="product_count" aria-describedby="Số lượng" placeholder="Số lượng"> --}}
-                            {{--                                                            <small class="form-text text-muted"></small> --}}
-                            {{--                                                        </div> --}}
-                            {{--                                                        <div class="form-group"> --}}
-                            {{--                                                            <label for="product_description">Mô tả</label> --}}
-                            {{--                                                            <textarea class="form-control" id="product_description" rows="3"></textarea> --}}
-                            {{--                                                        </div> --}}
-                            {{--                                                        <div class="form-group"> --}}
-                            {{--                                                            <label for="product_description">Hình ảnh</label> --}}
-                            {{--                                                            <div class="custom-file"> --}}
-                            {{--                                                                <input type="file" class="custom-file-input" id="image" accept="image/*"> --}}
-                            {{--                                                                <label class="custom-file-label" for="image">Choose file...</label> --}}
-                            {{--                                                                <div class="invalid-feedback"></div> --}}
-                            {{--                                                            </div> --}}
-                            {{--                                                        </div> --}}
-                            {{--                                                    </div> --}}
-                            {{--                                                    <div class="col-md-12"> --}}
-                            {{--                                                        <div class="form-group fill"> --}}
-                            {{--                                                            <div class="col-12 text-center"> --}}
-                            {{--                                                                <div id="upload-demo"></div> --}}
-                            {{--                                                            </div> --}}
-                            {{--                                                        </div> --}}
-                            {{--                                                    </div> --}}
-                            {{--                                                </div> --}}
-                            {{--                                            </form> --}}
-                            {{--                                        </div> --}}
-                            {{--                                        <div class="modal-footer d-flex justify-content-center p-2"> --}}
-                            {{--                                            <button type="button" id="add" class="btn  btn-primary">Thêm</button> --}}
-                            {{--                                        </div> --}}
-                            {{--                                    </div> --}}
-                            {{--                                </div> --}}
-                            {{--                            </div> --}}
-                            {{--                            <button type="button" class="btn btn-primary btn-icon has-ripple" style="z-index: 1000; position: absolute; right: 15px; top: 0;" data-toggle="modal" data-target="#add-product"><i class="fas fa-plus"></i><span class="ripple ripple-animate" style="height: 174.078px; width: 174.078px; animation-duration: 0.7s; animation-timing-function: linear; background: rgb(255, 255, 255); opacity: 0.4; top: -66.031px; left: -0.359125px;"></span></button> --}}
+
                         </div>
                     </div>
                     <div class="row d-flex flex-direction-row p-1">
@@ -204,8 +143,7 @@
                                                     <label for="check-all"><b></b></label>
                                                 </div>
                                                 <button type="button" class="btn btn-sm btn-danger ld-over" id="delete-all"
-                                                    data-route="{{ route('delete-products') }}"
-                                                    data-route-data="{{ route('product') }}">
+                                                    data-route="" data-route-data="{{ route('product') }}">
                                                     <i class="fas fa-trash-alt"></i>
                                                     <div class="ld ld-ring ld-spin"></div>
                                                 </button>

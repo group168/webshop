@@ -68,7 +68,7 @@
                                                             <input type="text" name="confirm_password"
                                                                 class="form-control" id="user_confirm_password"
                                                                 aria-describedby="Confirm password"
-                                                                placeholder="Đơn vị tính">
+                                                                placeholder="Confirm password">
                                                             <small class="form-text text-muted"></small>
                                                         </div>
                                                         <div class="form-group fill">
